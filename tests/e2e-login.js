@@ -1,55 +1,38 @@
 import LoginPage from '../page-object/pages/LoginPage'
-import App from '//page-objects/App'
+import App from '../page-object/App'
+import Navbar from '../page-object/components/Navbar'
+
 describe('E2E Tests Login /Logout Flow', () => {
   it('Should NOT Log in with Invalid credentials', () => {
-    // browser.url('http://zero.webappsecurity.com/index.html')
     App.openHomepage()
-    const button  = $('#signin_button')
-    button.waitForExist()
-    button.click()
-    // const loginForm = $('#login_form')
-    // loginForm.waitForExist()
-    // const login = $('#user_login')
-    // login.setValue('invalid')
-    // const password = $('#user_password')
-    // password.setValue('invalid')
-    // $('input[type="submit"]').click()
+    Navbar.clickSignIn()
     LoginPage.pauseLong()
     LoginPage.formIsVisible()
     LoginPage.fillForm('invalid', 'invalid')
     LoginPage.submitForm()
-   
-    const error = $('.alert-error')
+    const error = LoginPage.error
     error.waitForExist
   })
   it('Should Log in with Valid credentials', () => {
-    // browser.url('http://zero.webappsecurity.com/index.html')
     App.openHomepage()
-    const button  = $('#signin_button')
-    button.waitForExist()
-    button.click()
-    // const loginForm = $('#login_form')
-    // loginForm.waitForExist()
-    // const login = $('#user_login')
-    // login.setValue('username')
-    // const password = $('#user_password')
-    // password.setValue('password')
-    // $('input[type="submit"]').click()
+    Navbar.clickSignIn()
     LoginPage.pauseShort()
     LoginPage.formIsVisible()
     LoginPage.fillForm('username', 'password')
     LoginPage.submitForm()
-    const navtabs = $('.nav-tabs')
-    navtabs.waitForExist()
+    Navbar.insideNavbarIsVisible()
   })
   it('Logout', () => {
-    const user = $('.icon-user')
-    user.waitForExist()
-    user.click()
-    const logoutLink = $('#logout_link')
-    logoutLink.waitForExist()
-    logoutLink.click()
-    const signInBtn  = $('#signin_button')
-    signInBtn.waitForExist()
+    // const user = $('.icon-user')
+    // user.waitForExist()
+    // user.click()
+    // const logoutLink = $('#logout_link')
+    // logoutLink.waitForExist()
+    // logoutLink.click()
+    App.logout()
+    Navbar.signInButtonIsVisible()
+    // const signInBtn  = $('#signin_button')
+
+    // signInBtn.waitForExist()
   })
 })

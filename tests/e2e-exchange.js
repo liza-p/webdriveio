@@ -1,13 +1,12 @@
+import App from '../page-object/App'
+import LoginPage from '../page-object/pages/LoginPage'
+import Navbar from '../page-object/components/Navbar'
+
 describe('E2E Tests - Currency Exchange', () => {
 it('Should log into application', () => {
-  browser.url('http://zero.webappsecurity.com/index.html')
-  $('#signin_button').waitForExist()
-  $('#signin_button').click()
-  $('#login_form').waitForExist()
-  $('#user_login').setValue('username')
-  $('#user_password').setValue('password')
-  $('input[type="submit"]').click()
-  $('.nav-tabs').waitForExist()
+  App.openLoginPage()
+  LoginPage.login('username', 'password')
+  Navbar.insideNavbarIsVisible()
 })
 
 it('Should make currency exchange', () => {

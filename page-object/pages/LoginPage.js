@@ -13,6 +13,9 @@ class LoginPage extends Base {
     get submitButton() {
       return $('input[type="submit"]')
     }
+    get error() {
+      return $('.alert-error')
+    }
 
     formIsVisible() {
         this.LoginForm.waitForExist()
@@ -23,6 +26,12 @@ class LoginPage extends Base {
       this.passwordInput.setValue(password)
     }
     submitForm() {
+      this.submitButton.click()
+    }
+    login(username, password){
+      this.LoginForm.waitForExist()
+      this.usernameInput.setValue(username)
+      this.passwordInput.setValue(password)
       this.submitButton.click()
     }
 }

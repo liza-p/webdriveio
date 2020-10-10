@@ -19,7 +19,7 @@ describe('Browser Actions', () =>{
       browser.pause(long)
       // button.doubleClick()
     })
-    it('Chackbox, Radiobutton', () =>{
+    it('Checkbox, Radiobutton', () =>{
       const radioBtnLinux= $('#linux')
       radioBtnLinux.waitForExist()
       radioBtnLinux.click()

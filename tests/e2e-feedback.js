@@ -3,7 +3,7 @@ import App from '../page-object/App'
 describe('E2E Feedback form', () => {
  it('Should Load Feedback Form', () => {
    //browser.url('http://zero.webappsecurity.com/index.html')
-   App.openHOmepage()
+   App.openHomepage()
    $('#feedback').waitForDisplayed()
    $('#feedback').click()
    $('form').waitForExist()
