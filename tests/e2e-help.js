@@ -1,6 +1,7 @@
 import App from '../page-object/App'
 import LoginPage from '../page-object/pages/LoginPage'
 import Navbar from '../page-object/components/Navbar'
+import HelpPage from '../page-object/pages/HelpPage'
 
 describe('E2E Test- Help Section', () => {
   it('Should log into application', () => {
@@ -9,25 +10,38 @@ describe('E2E Test- Help Section', () => {
     Navbar.insideNavbarIsVisible()
   })
   it('Should Load Help Content', () =>{
+    Navbar.clickSettings()
+    Navbar.clickHelp()
+    expect(HelpPage.title).toHaveText('Help Topics')
+    expect(HelpPage.account).toHaveText('How do I log into my account?');
+    HelpPage.clickAccount()
+    $('/html/body/div[1]/div[2]/div/div/div/div[2]/div[2]/ol/li[1]').waitForExist()
+    expect(HelpPage.transferFunds).toHaveText('How do I transfer funds?')
+    HelpPage.clickTransferFunds()
+    $('/html/body/div[1]/div[2]/div/div/div/div[2]/div[2]/h3').waitForExist()
+    expect(HelpPage.payBills).toHaveText('How do I pay bills?')
+    HelpPage.clickPayBills()
+    $('/html/body/div[1]/div[2]/div/div/div/div[2]/div[2]/h3').waitForExist()
+    HelpPage.clickAccount()
+    $('/html/body/div[1]/div[2]/div/div/div/div[2]/div[2]/ol/li[1]').waitForExist()
+  }) 
+
+   it('Should redirect to Download WebInspect', () => {
+    $('#download_webinspect_link').waitForExist()
+    $('#download_webinspect_link').click()
+    expect(browser).toHaveUrl('https://www.microfocus.com/en-us/products/webinspect-dynamic-analysis-dast/overview')
+    $('//*[@id="section0"]/div/div[2]/div/div[1]/div/a/img').waitForExist()
+   })
+   it('Should redirect to the Terms of Use', () => {
+    App.openHomepage()
     $('.icon-cog').click()
     $('#help_link').waitForExist()
     $('#help_link').click()
-    const title = $('/html/body/div[1]/div[2]/div/div/div/div[1]/div/h3')
-    expect(title).toHaveText('Help Topics')
-    const account = $('/html/body/div[1]/div[2]/div/div/div/div[2]/div[1]/ol/li[1]/a')
-    expect(account).toHaveText('How do I log into my account?')
-    account.click()
-    $('/html/body/div[1]/div[2]/div/div/div/div[2]/div[2]/ol/li[1]').waitForExist()
-    const transferFunds = $('/html/body/div[1]/div[2]/div/div/div/div[2]/div[1]/ol/li[2]/a')
-    expect(transferFunds).toHaveText('How do I transfer funds?')
-    transferFunds.click()
-    $('/html/body/div[1]/div[2]/div/div/div/div[2]/div[2]/h3').waitForExist()
-    const payBills = $('/html/body/div[1]/div[2]/div/div/div/div[2]/div[1]/ol/li[3]/a')
-    expect(payBills).toHaveText('How do I pay bills?')
-    payBills.click()
-    $('/html/body/div[1]/div[2]/div/div/div/div[2]/div[2]/h3').waitForExist()
-    account.click()
-    $('/html/body/div[1]/div[2]/div/div/div/div[2]/div[2]/ol/li[1]').waitForExist()
-  }) 
-  
+     $('#terms_of_use_link').waitForExist()
+     $('#terms_of_use_link').click()
+     expect(browser).toHaveUrl('https://www.microfocus.com/about/legal/')
+     $('//*[@id="header"]/div/div/h1').waitForExist()
+   })
+
+
 })
